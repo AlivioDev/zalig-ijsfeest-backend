@@ -4,7 +4,6 @@ package nl.novi.zaligijsfeest.Dto;
 // Maak constructors
 // Maak getters en setters
 
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -30,11 +29,64 @@ public class ProductDto {
     private Double priceTwo;
     private Double priceThree;
 
-    //Constructors
+//    private List<ProductDto> ProductDtoList() {
+//        List<ProductDto> productList = new ArrayList<ProductDto>();
+//
+//        ProductDto rond = new ProductDto("IJstaart rond", "4/6 personen", "8/10 personen", "14/16 personen", 20.00, 26.50, 39.00);
+//        ProductDto ster = new ProductDto("IJstaart Kerstster", "5/6 personen", "10/12 personen", 25.00, 35.00);
+//        ProductDto klok = new ProductDto("IJstaart Kerstklok", "5/6 personen", "14/16 personen", 25.00, 39.00);
+//        ProductDto cassata = new ProductDto("Cassata", "8/10 personen", 32.50);
+//        ProductDto tulband = new ProductDto("Tulband", "8/10 personen", 32.50);
+//        ProductDto kathedraal = new ProductDto("Kerstkathedraal", "8/10 personen", 35.00);
+//        ProductDto bombe = new ProductDto("Bombe", "3/4 personen", 19.50);
+//        ProductDto profiterolles = new ProductDto("Profiterolles", "vanaf 6 personen", 5.00);
+//
+//        productList.add(rond);
+//        productList.add(ster);
+//        productList.add(klok);
+//        productList.add(cassata);
+//        productList.add(tulband);
+//        productList.add(kathedraal);
+//        productList.add(bombe);
+//        productList.add(profiterolles);
+//
+//        return productList;
+//    }
 
+
+    //Constructors
+    //default constructor
     public ProductDto() {
     }
 
+    //constructor voor ijstaart met 1 personen optie en 1 prijs optie
+    public ProductDto(String productName, String numberOfPersonsOne, Double priceOne) {
+        this.productName = productName;
+        this.numberOfPersonsOne = numberOfPersonsOne;
+        this.priceOne = priceOne;
+    }
+
+    //constructor voor ijstaart met 2 personen opties en 2 prijs opties
+    public ProductDto(String productName, String numberOfPersonsOne, String numberOfPersonsTwo, Double priceOne, Double priceTwo) {
+        this.productName = productName;
+        this.numberOfPersonsOne = numberOfPersonsOne;
+        this.numberOfPersonsTwo = numberOfPersonsTwo;
+        this.priceOne = priceOne;
+        this.priceTwo = priceTwo;
+    }
+
+    //constructor voor ijstaart met 3 personen opties en 3 prijs opties
+    public ProductDto(String productName, String numberOfPersonsOne, String numberOfPersonsTwo, String numberOfPersonsThree, Double priceOne, Double priceTwo, Double priceThree) {
+        this.productName = productName;
+        this.numberOfPersonsOne = numberOfPersonsOne;
+        this.numberOfPersonsTwo = numberOfPersonsTwo;
+        this.numberOfPersonsThree = numberOfPersonsThree;
+        this.priceOne = priceOne;
+        this.priceTwo = priceTwo;
+        this.priceThree = priceThree;
+    }
+
+    //volledige constructor
     public ProductDto(Long id,
                       String productName,
                       String numberOfPersonsOne,

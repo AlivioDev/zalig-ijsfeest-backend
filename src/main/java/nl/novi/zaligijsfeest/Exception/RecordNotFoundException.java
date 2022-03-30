@@ -1,5 +1,7 @@
 package nl.novi.zaligijsfeest.Exception;
 
+//klasse voor de RecordNotFoundException methode
+
 import java.io.Serial;
 
 public class RecordNotFoundException extends RuntimeException{

@@ -86,7 +86,7 @@ public class IceCreamFlavorServiceImpl implements IceCreamFlavorService {
         return flavor;
     }
 
-    //Methode om de gegevens vanuit de entitiy aan de roomijs dto door te geven
+    //Methode om de gegevens vanuit de entity aan de roomijs dto door te geven
     public IceCreamFlavorDto transferToIceCreamFlavorDto(IceCreamFlavor iceCreamFlavor) {
         var dto = new IceCreamFlavorDto();
 

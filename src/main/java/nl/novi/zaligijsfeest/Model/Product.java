@@ -3,7 +3,10 @@ package nl.novi.zaligijsfeest.Model;
 // maak variabelen aan voor de volgende ijstaart-gegevens: id, productnaam, personenopties, prijsopties
 // maak getters en setters
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table (name = "products")
@@ -54,7 +57,6 @@ public class Product {
         return priceThree;
     }
 
-
     //Setters
     public void setId(Long id) {
         this.id = id;
@@ -87,5 +89,6 @@ public class Product {
     public void setPriceThree(Double priceThree) {
         this.priceThree = priceThree;
     }
+
 
 }

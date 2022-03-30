@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
         return productDtoList;
     }
 
-    //methode voor het opvragen van een product middels het id
+    //methode voor het opvragen van een product
     @Override
     public ProductDto getProductById(Long id) {
         if (productRepository.findById(id).isPresent()) {
@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
         return dto;
     }
 
-    //methode voor het verwijderen van een product middels het id
+    //methode voor het verwijderen van een product
     @Override
     public void deleteProduct(Long id) {
         if (productRepository.findById(id).isPresent()) {
@@ -59,13 +59,13 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    //methode voor het updaten van een product middels het id
+    //methode voor het updaten van een product
     @Override
     public ProductDto updateProduct(Long id, ProductDto dto) {
         if (productRepository.findById(id).isPresent()) {
             Product product = productRepository.findById(id).get();
 
-            product.setId(product.getId()); //TODO: vragen of dit met opzet product.get is ipv dto.get
+            product.setId(product.getId());
             product.setProductName(dto.getProductName());
             product.setNumberOfPersonsOne(dto.getNumberOfPersonsOne());
             product.setNumberOfPersonsTwo(dto.getNumberOfPersonsTwo());
@@ -81,12 +81,11 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-
     //methode om de gegevens vanuit de dto aan de entity door te geven
     public Product transferToProduct(ProductDto dto) {
         var product = new Product();
 
-        product.setId(dto.getId()); //TODO: vragen of dit met opzet dto.get is
+        product.setId(dto.getId());
         product.setProductName(dto.getProductName());
         product.setNumberOfPersonsOne(dto.getNumberOfPersonsOne());
         product.setNumberOfPersonsTwo(dto.getNumberOfPersonsTwo());

@@ -1,10 +1,17 @@
 package nl.novi.zaligijsfeest.Model;
 
+// maak variabelen voor de sorbet gegevens id en naam
+// maak getters en setters
+// hiervoor een aparte lijst om toevoegen en wijzigen van sorbet smaken voor de admin mooi apart te houden van de ijstaarten en roomijs smaken
+// en in de code en database overzichtelijke scheiding tussen deze categoriën
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "sorbetflavors")
 public class SorbetFlavor {
     //Variabelen
     @Id

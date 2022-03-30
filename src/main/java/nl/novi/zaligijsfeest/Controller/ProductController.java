@@ -12,8 +12,10 @@ import java.util.List;
 @RestController
 public class ProductController {
 
+    //koppeling met de servicelaag om de methoden te kunnen gebruiken
     @Autowired
     ProductService productService;
+
 
     //een GET-request voor alle ijstaarten
     @GetMapping(path = "/products")

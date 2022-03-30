@@ -29,7 +29,7 @@ public class SorbetFlavorServiceImpl implements SorbetFlavorService {
         return sorbetFlavorDtoList;
     }
 
-    //Methode voor het ophalen van een roomijs smaak
+    //Methode voor het ophalen van een sorbet smaak
     @Override
     public SorbetFlavorDto getFlavorById(Long id) {
         if (sorbetFlavorRepository.findById(id).isPresent()) {
@@ -41,7 +41,7 @@ public class SorbetFlavorServiceImpl implements SorbetFlavorService {
         }
     }
 
-    //Methode voor het toevoegen van een roomijs smaak
+    //Methode voor het toevoegen van een sorbet smaak
     @Override
     public SorbetFlavorDto addFlavor(SorbetFlavorDto sorbetFlavorDto) {
         SorbetFlavor sorbetFlavor = transferToSorbetFlavor(sorbetFlavorDto);
@@ -49,7 +49,7 @@ public class SorbetFlavorServiceImpl implements SorbetFlavorService {
         return sorbetFlavorDto;
     }
 
-    //Methode voor het verwijderen van een roomijs smaak
+    //Methode voor het verwijderen van een sorbet smaak
     @Override
     public void deleteFlavor(Long id) {
         if (sorbetFlavorRepository.findById(id).isPresent()) {
@@ -59,7 +59,7 @@ public class SorbetFlavorServiceImpl implements SorbetFlavorService {
         }
     }
 
-    //Methode voor het updaten van een roomijs smaak
+    //Methode voor het updaten van een sorbet smaak
     @Override
     public SorbetFlavorDto updateFlavor(Long id, SorbetFlavorDto sorbetFlavorDto) {
         if (sorbetFlavorRepository.findById(id).isPresent()) {
@@ -75,7 +75,7 @@ public class SorbetFlavorServiceImpl implements SorbetFlavorService {
         }
     }
 
-    //Methode om gegevens vanuit de dto aan de roomijs entity door te geven
+    //Methode om gegevens vanuit de dto aan de sorbet entity door te geven
     public SorbetFlavor transferToSorbetFlavor(SorbetFlavorDto dto) {
         var flavor = new SorbetFlavor();
 
@@ -85,7 +85,7 @@ public class SorbetFlavorServiceImpl implements SorbetFlavorService {
         return flavor;
     }
 
-    //Methode om de gegevens vanuit de entitiy aan de roomijs dto door te geven
+    //Methode om de gegevens vanuit de entitiy aan de sorbet dto door te geven
     public SorbetFlavorDto transferToSorbetFlavorDto(SorbetFlavor sorbetFlavor) {
         var dto = new SorbetFlavorDto();
 
