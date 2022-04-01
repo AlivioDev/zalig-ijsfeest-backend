@@ -29,31 +29,6 @@ public class ProductDto {
     private Double priceTwo;
     private Double priceThree;
 
-//    private List<ProductDto> ProductDtoList() {
-//        List<ProductDto> productList = new ArrayList<ProductDto>();
-//
-//        ProductDto rond = new ProductDto("IJstaart rond", "4/6 personen", "8/10 personen", "14/16 personen", 20.00, 26.50, 39.00);
-//        ProductDto ster = new ProductDto("IJstaart Kerstster", "5/6 personen", "10/12 personen", 25.00, 35.00);
-//        ProductDto klok = new ProductDto("IJstaart Kerstklok", "5/6 personen", "14/16 personen", 25.00, 39.00);
-//        ProductDto cassata = new ProductDto("Cassata", "8/10 personen", 32.50);
-//        ProductDto tulband = new ProductDto("Tulband", "8/10 personen", 32.50);
-//        ProductDto kathedraal = new ProductDto("Kerstkathedraal", "8/10 personen", 35.00);
-//        ProductDto bombe = new ProductDto("Bombe", "3/4 personen", 19.50);
-//        ProductDto profiterolles = new ProductDto("Profiterolles", "vanaf 6 personen", 5.00);
-//
-//        productList.add(rond);
-//        productList.add(ster);
-//        productList.add(klok);
-//        productList.add(cassata);
-//        productList.add(tulband);
-//        productList.add(kathedraal);
-//        productList.add(bombe);
-//        productList.add(profiterolles);
-//
-//        return productList;
-//    }
-
-
     //Constructors
     //default constructor
     public ProductDto() {
