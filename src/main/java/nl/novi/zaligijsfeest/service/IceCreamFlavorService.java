@@ -1,24 +1,14 @@
 package nl.novi.zaligijsfeest.service;
 
 
-import nl.novi.zaligijsfeest.dto.IceCreamFlavorDto;
+import nl.novi.zaligijsfeest.dto.FlavorDto;
 
 import java.util.List;
 
 public interface IceCreamFlavorService {
-
-    //Methode voor het ophalen van alle roomijs smaken
-    List<IceCreamFlavorDto> getIceCreamFlavors();
-
-    //Methode voor het ophalen van een roomijs smaak
-    IceCreamFlavorDto getFlavorById(Long id);
-
-    //Methode voor het toevoegen van een roomijs smaak
-    IceCreamFlavorDto addFlavor(IceCreamFlavorDto dto);
-
-    //Methode voor het verwijderen van een roomijs smaak
-    void deleteFlavor(Long id);
-
-    //Methode voor het updaten van een roomijs smaak
-    IceCreamFlavorDto updateFlavor(Long id, IceCreamFlavorDto dto);
+    List<FlavorDto> getFlavors();
+    FlavorDto getFlavor(String name);
+    FlavorDto addFlavor(FlavorDto dto);
+    void deleteFlavor(String name);
+    FlavorDto updateFlavor(String name, FlavorDto dto);
 }

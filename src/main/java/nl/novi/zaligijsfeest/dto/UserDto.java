@@ -1,25 +1,16 @@
 package nl.novi.zaligijsfeest.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import nl.novi.zaligijsfeest.model.Authority;
-
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
 
 public class UserDto {
+
     //Variabelen
     @NotBlank
     private String username;
 
     @NotBlank
     private String password;
-
-    @NotBlank
-    private Boolean enabled;
-
-    private String apikey;
 
     @NotBlank
     @Email
@@ -32,18 +23,26 @@ public class UserDto {
     private String lastName;
 
     @NotBlank
-    @Digits(integer = 10, fraction = 0)
+    // hier de check verwijderd omdat ik daarvoor in de frontend een iets betere check heb gemaakt
     private String phoneNumber;
 
     @NotBlank
     private String role;
 
-    @JsonSerialize
-    public Set<Authority> authorities;
-
     //Constructors
-
+    //Default
     public UserDto() {
+    }
+
+    //volledig exclusief foto
+    public UserDto(String username, String password, String email, String firstName, String lastName, String phoneNumber, String role) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
     }
 
     //Getters
@@ -53,14 +52,6 @@ public class UserDto {
 
     public String getPassword() {
         return password;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public String getApikey() {
-        return apikey;
     }
 
     public String getEmail() {
@@ -83,11 +74,6 @@ public class UserDto {
         return role;
     }
 
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-
     //Setters
     public void setUsername(String userName) {
         this.username = userName;
@@ -95,14 +81,6 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setApikey(String apikey) {
-        this.apikey = apikey;
     }
 
     public void setEmail(String email) {
@@ -123,9 +101,5 @@ public class UserDto {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
     }
 }

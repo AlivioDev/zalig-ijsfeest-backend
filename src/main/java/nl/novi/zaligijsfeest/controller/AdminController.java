@@ -1,17 +1,13 @@
 package nl.novi.zaligijsfeest.controller;
 
-import nl.novi.zaligijsfeest.dto.UserDto;
-import nl.novi.zaligijsfeest.exception.BadRequestException;
-import nl.novi.zaligijsfeest.service.UserService;
+import nl.novi.zaligijsfeest.dto.AdminDto;
+import nl.novi.zaligijsfeest.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -20,69 +16,40 @@ public class AdminController {
 
     //Koppeling met de servicelaag om de methoden te kunnen gebruiken
     @Autowired
-    private UserService userService;
+    private AdminService adminService;
 
     //een GET-request voor alle admins
     @GetMapping(path = "")
-    public ResponseEntity<Object> getUsers() {
-        List<UserDto> userDtoList = userService.getUsers();
-        return new ResponseEntity<>(userDtoList, HttpStatus.OK);
+    public ResponseEntity<Object> getAdmins() {
+        List<AdminDto> adminDtoList = adminService.getAdmins();
+        return new ResponseEntity<>(adminDtoList, HttpStatus.OK);
     }
 
     //en GET-request voor 1 user via admins
-    @GetMapping(path = "/{username}")
-    public ResponseEntity<Object> getUserByUserName(@PathVariable("username") String username) {
-        UserDto userDto = userService.getUser(username);
-        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    @GetMapping(path = "/{name}")
+    public ResponseEntity<Object> getAdminByUsername(@PathVariable("name") String name) {
+        AdminDto adminDto = adminService.getAdmin(name);
+        return new ResponseEntity<>(adminDto, HttpStatus.OK);
     }
 
     //een POST-request voor 1 admin
     @PostMapping(path = "")
-    public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
-        String user = userService.createUser(userDto);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
-                .buildAndExpand(user).toUri();
-        return ResponseEntity.created(location).build();
+    public ResponseEntity<Object> addAdmin(@RequestBody AdminDto adminDto) {
+        AdminDto admin = adminService.addAdmin(adminDto);
+        return new ResponseEntity<>(admin, HttpStatus.CREATED);
     }
 
     //een DELETE-request voor 1 admin
-    @DeleteMapping(path = "/{username}")
-    public ResponseEntity<Object> deleteUser(@PathVariable("username") String username) {
-        userService.deleteUser(username);
+    @DeleteMapping(path = "/{name}")
+    public ResponseEntity<Object> deleteAdmin(@PathVariable("name") String name) {
+        adminService.deleteAdmin(name);
         return ResponseEntity.noContent().build();
     }
 
     //een PUT-request voor 1 admin
-    @PutMapping(path = "/{username}")
-    public ResponseEntity<Object> updateUser(@PathVariable("username") String username, @RequestBody UserDto userDto) {
-        UserDto user = userService.updateUser(username, userDto);
+    @PutMapping(path = "/{name}")
+    public ResponseEntity<Object> updateAdmin(@PathVariable("name") String name, @RequestBody AdminDto adminDto) {
+        AdminDto user = adminService.updateAdmin(name, adminDto);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
-    //een GET-request voor het opvragen van de toestemming/toegang van de admin
-    @GetMapping(value = "/{username}/authorities")
-    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
-        return ResponseEntity.ok().body(userService.getAuthorities(username));
-    }
-
-    //een POST-request voor het toewijzen van toestemming/toegang aan een admin
-    @PostMapping(value = "/{username}/authorities")
-    public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
-        try {
-            String authorityName = (String) fields.get("authority");
-            userService.addAuthority(username, authorityName);
-            return ResponseEntity.noContent().build();
-        }
-        catch (Exception ex) {
-            throw new BadRequestException();
-        }
-    }
-
-    //een DELETE-request voor het verwijderen van toestemming/toegang van een admin
-    @DeleteMapping(value = "/{username}/authorities/{authority}")
-    public ResponseEntity<Object> deleteUserAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
-        userService.removeAuthority(username, authority);
-        return ResponseEntity.noContent().build();
-    }
-
 }

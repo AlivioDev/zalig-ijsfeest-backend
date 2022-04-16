@@ -35,14 +35,16 @@ public class ProductDto {
     }
 
     //constructor voor ijstaart met 1 personen optie en 1 prijs optie
-    public ProductDto(String productName, String numberOfPersonsOne, Double priceOne) {
+    public ProductDto(Long id, String productName, String numberOfPersonsOne, Double priceOne) {
+        this.id = id;
         this.productName = productName;
         this.numberOfPersonsOne = numberOfPersonsOne;
         this.priceOne = priceOne;
     }
 
     //constructor voor ijstaart met 2 personen opties en 2 prijs opties
-    public ProductDto(String productName, String numberOfPersonsOne, String numberOfPersonsTwo, Double priceOne, Double priceTwo) {
+    public ProductDto(Long id, String productName, String numberOfPersonsOne, String numberOfPersonsTwo, Double priceOne, Double priceTwo) {
+        this.id = id;
         this.productName = productName;
         this.numberOfPersonsOne = numberOfPersonsOne;
         this.numberOfPersonsTwo = numberOfPersonsTwo;
@@ -50,26 +52,8 @@ public class ProductDto {
         this.priceTwo = priceTwo;
     }
 
-    //constructor voor ijstaart met 3 personen opties en 3 prijs opties
-    public ProductDto(String productName, String numberOfPersonsOne, String numberOfPersonsTwo, String numberOfPersonsThree, Double priceOne, Double priceTwo, Double priceThree) {
-        this.productName = productName;
-        this.numberOfPersonsOne = numberOfPersonsOne;
-        this.numberOfPersonsTwo = numberOfPersonsTwo;
-        this.numberOfPersonsThree = numberOfPersonsThree;
-        this.priceOne = priceOne;
-        this.priceTwo = priceTwo;
-        this.priceThree = priceThree;
-    }
-
-    //volledige constructor
-    public ProductDto(Long id,
-                      String productName,
-                      String numberOfPersonsOne,
-                      String numberOfPersonsTwo,
-                      String numberOfPersonsThree,
-                      Double priceOne,
-                      Double priceTwo,
-                      Double priceThree) {
+    //constructor voor ijstaart met 3 personen opties en 3 prijs opties (volledige constructor)
+    public ProductDto(Long id, String productName, String numberOfPersonsOne, String numberOfPersonsTwo, String numberOfPersonsThree, Double priceOne, Double priceTwo, Double priceThree) {
         this.id = id;
         this.productName = productName;
         this.numberOfPersonsOne = numberOfPersonsOne;
@@ -79,6 +63,7 @@ public class ProductDto {
         this.priceTwo = priceTwo;
         this.priceThree = priceThree;
     }
+
 
     //Getters
     public Long getId() {

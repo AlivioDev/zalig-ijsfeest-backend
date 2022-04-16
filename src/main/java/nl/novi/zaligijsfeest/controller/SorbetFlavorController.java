@@ -1,6 +1,6 @@
 package nl.novi.zaligijsfeest.controller;
 
-import nl.novi.zaligijsfeest.dto.SorbetFlavorDto;
+import nl.novi.zaligijsfeest.dto.FlavorDto;
 import nl.novi.zaligijsfeest.service.SorbetFlavorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/sorbetflavors")
 public class SorbetFlavorController {
 
     //koppeling met de servicelaag om de methoden te kunnen gebruiken
@@ -18,37 +19,37 @@ public class SorbetFlavorController {
     SorbetFlavorService sorbetFlavorService;
 
     //GET mapping voor opvragen alle sorbet smaken
-    @GetMapping("/sorbetflavors")
+    @GetMapping(path = "")
     public ResponseEntity<Object> getSorbetFlavors() {
-        List<SorbetFlavorDto> sorbetFlavorDtoList = sorbetFlavorService.getSorbetFlavors();
-        return new ResponseEntity<>(sorbetFlavorDtoList, HttpStatus.OK);
+        List<FlavorDto> flavorDtoList = sorbetFlavorService.getFlavors();
+        return new ResponseEntity<>(flavorDtoList, HttpStatus.OK);
     }
 
     //GET mapping voor opvragen van een sorbet smaak
-    @GetMapping("/sorbetflavors/{id}")
-    public ResponseEntity<Object> getFlavorById(@PathVariable("id") Long id) {
-        SorbetFlavorDto flavorDto = sorbetFlavorService.getFlavorById(id);
+    @GetMapping(path = "/{name}")
+    public ResponseEntity<Object> getFlavor(@PathVariable("name") String name) {
+        FlavorDto flavorDto = sorbetFlavorService.getFlavor(name);
         return new ResponseEntity<>(flavorDto, HttpStatus.OK);
     }
 
     //Post mapping voor toevoegen van een sorbet smaak
-    @PostMapping("/sorbetflavors")
-    public ResponseEntity<Object> createSorbetFlavor(@Valid @RequestBody SorbetFlavorDto sorbetFlavorDto) {
-        SorbetFlavorDto sorbetFlavor = sorbetFlavorService.addFlavor (sorbetFlavorDto);
+    @PostMapping(path = "")
+    public ResponseEntity<Object> createSorbetFlavor(@Valid @RequestBody FlavorDto sorbetFlavorDto) {
+        FlavorDto sorbetFlavor = sorbetFlavorService.addFlavor (sorbetFlavorDto);
         return new ResponseEntity<>("ijssmaak" + sorbetFlavor + " aangemaakt", HttpStatus.CREATED);
     }
 
     //Delete mapping voor verwijderen sorbet smaak
-    @DeleteMapping("/sorbetflavors/{id}")
-    public ResponseEntity<Object> deleteFlavor(@PathVariable("id") Long id) {
-        sorbetFlavorService.deleteFlavor(id);
-        return new ResponseEntity<>("Roomijs smaak met id " + id + " is verwijderd.", HttpStatus.OK);
+    @DeleteMapping(path = "/{name}")
+    public ResponseEntity<Object> deleteFlavor(@PathVariable("name") String name) {
+        sorbetFlavorService.deleteFlavor(name);
+        return new ResponseEntity<>("Roomijs smaak met id " + name + " is verwijderd.", HttpStatus.OK);
     }
 
     //PUT mapping voor aanpassen van een sorbet smaak
-    @PutMapping("/sorbetflavors/{id}")
-    public ResponseEntity<Object> updateFlavor(@PathVariable("id") Long id, @RequestBody SorbetFlavorDto sorbetFlavor) {
-        SorbetFlavorDto sorbetFlavorDto = sorbetFlavorService.updateFlavor(id, sorbetFlavor);
+    @PutMapping(path = "/{name}")
+    public ResponseEntity<Object> updateFlavor(@PathVariable("name") String name, @RequestBody FlavorDto sorbetFlavor) {
+        FlavorDto sorbetFlavorDto = sorbetFlavorService.updateFlavor(name, sorbetFlavor);
         return new ResponseEntity<> (sorbetFlavorDto, HttpStatus.OK);
     }
 }

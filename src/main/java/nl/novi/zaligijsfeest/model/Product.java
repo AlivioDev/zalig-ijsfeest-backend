@@ -24,6 +24,7 @@ public class Product {
     private Double priceTwo;
     private Double priceThree;
 
+
     //Getters
     public Long getId() {
         return id;

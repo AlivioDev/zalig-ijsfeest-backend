@@ -1,22 +1,14 @@
 package nl.novi.zaligijsfeest.service;
 
-import nl.novi.zaligijsfeest.dto.SorbetFlavorDto;
+
+import nl.novi.zaligijsfeest.dto.FlavorDto;
 
 import java.util.List;
 
 public interface SorbetFlavorService {
-    //Methode voor het opvragen van alle sorbet smaken
-    List<SorbetFlavorDto> getSorbetFlavors();
-
-    //Methode voor het ophalen van een roomijs smaak
-    SorbetFlavorDto getFlavorById(Long id);
-
-    //Methode voor het toevoegen van een roomijs smaak
-    SorbetFlavorDto addFlavor(SorbetFlavorDto sorbetFlavorDto);
-
-    //Methode voor het verwijderen van een roomijs smaak
-    void deleteFlavor(Long id);
-
-    //Methode voor het updaten van een roomijs smaak
-    SorbetFlavorDto updateFlavor(Long id, SorbetFlavorDto sorbetFlavorDto);
+    List<FlavorDto> getFlavors();
+    FlavorDto getFlavor(String name);
+    FlavorDto addFlavor(FlavorDto dto);
+    void deleteFlavor(String name);
+    FlavorDto updateFlavor(String name, FlavorDto dto);
 }

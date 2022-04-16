@@ -1,9 +1,6 @@
 package nl.novi.zaligijsfeest.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table (name = "users")
@@ -15,12 +12,6 @@ public class User {
 
     @Column(nullable = false, length = 255)
     private String password;
-
-    @Column(nullable = false)
-    private boolean enabled = true;
-
-    @Column
-    private String apikey;
 
     @Column
     private String email;
@@ -37,30 +28,14 @@ public class User {
     @Column
     private String role;
 
-    @OneToMany(
-            targetEntity = Authority.class,
-            mappedBy = "username",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER)
-    private Set<Authority> authorities = new HashSet<>();
 
     //Getters
-
     public String getUsername() {
         return username;
     }
 
     public String getPassword() {
         return password;
-    }
-
-    public boolean getEnabled() {
-        return enabled;
-    }
-
-    public String getApikey() {
-        return apikey;
     }
 
     public String getEmail() {
@@ -83,9 +58,6 @@ public class User {
         return role;
     }
 
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
 
     //Setters
     public void setUsername(String username) {
@@ -94,14 +66,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setApikey(String apikey) {
-        this.apikey = apikey;
     }
 
     public void setEmail(String email) {
@@ -124,15 +88,4 @@ public class User {
         this.role = role;
     }
 
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
-    public void addAuthority(Authority authority) {
-        this.authorities.add(authority);
-    }
-
-    public void removeAuthority(Authority authority) {
-        this.authorities.remove(authority);
-    }
 }

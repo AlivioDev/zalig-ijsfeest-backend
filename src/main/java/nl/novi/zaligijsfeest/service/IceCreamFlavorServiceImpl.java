@@ -1,6 +1,6 @@
 package nl.novi.zaligijsfeest.service;
 
-import nl.novi.zaligijsfeest.dto.IceCreamFlavorDto;
+import nl.novi.zaligijsfeest.dto.FlavorDto;
 import nl.novi.zaligijsfeest.exception.RecordNotFoundException;
 import nl.novi.zaligijsfeest.model.IceCreamFlavor;
 import nl.novi.zaligijsfeest.repository.IceCreamFlavorRepository;
@@ -19,80 +19,73 @@ public class IceCreamFlavorServiceImpl implements IceCreamFlavorService {
 
     //Methode voor het ophalen van alle roomijs smaken
     @Override
-    public List<IceCreamFlavorDto> getIceCreamFlavors() {
-        List<IceCreamFlavor> iceCreamFlavorList = iceCreamFlavorRepository.findAll();
-        List<IceCreamFlavorDto> iceCreamFlavorDtoList = new ArrayList<>();
+    public List<FlavorDto> getFlavors() {
+        List<IceCreamFlavor> flavorList = iceCreamFlavorRepository.findAll();
+        List<FlavorDto> flavorDtoList = new ArrayList<>();
 
-        for(IceCreamFlavor iceCreamFlavor : iceCreamFlavorList) {
-            IceCreamFlavorDto iceCreamFlavorDto = transferToIceCreamFlavorDto(iceCreamFlavor);
-            iceCreamFlavorDtoList.add(iceCreamFlavorDto);
+        for(IceCreamFlavor flavor : flavorList) {
+            FlavorDto flavorDto = transferToFlavorDto(flavor);
+            flavorDtoList.add(flavorDto);
         }
-        return iceCreamFlavorDtoList;
+        return flavorDtoList;
     }
 
     //Methode voor het ophalen van een roomijs smaak
     @Override
-    public IceCreamFlavorDto getFlavorById(Long id) {
-        if (iceCreamFlavorRepository.findById(id).isPresent()) {
-            IceCreamFlavor iceCreamFlavor = iceCreamFlavorRepository.findById(id).get();
-            IceCreamFlavorDto dto = transferToIceCreamFlavorDto(iceCreamFlavor);
+    public FlavorDto getFlavor(String name) {
+        if (iceCreamFlavorRepository.findById(name).isPresent()) {
+            IceCreamFlavor flavor = iceCreamFlavorRepository.findById(name).get();
+            FlavorDto dto = transferToFlavorDto(flavor);
             return dto;
         } else {
-            throw new RecordNotFoundException("Geen smaak gevonden met id " + id + ".");
+            throw new RecordNotFoundException("Geen smaak gevonden met naam " + name + ".");
         }
     }
 
     //Methode voor het toevoegen van een roomijs smaak
     @Override
-    public IceCreamFlavorDto addFlavor(IceCreamFlavorDto iceCreamFlavorDto) {
-        IceCreamFlavor iceCreamFlavor = transferToIceCreamFlavor(iceCreamFlavorDto);
-        iceCreamFlavorRepository.save(iceCreamFlavor);
-        return iceCreamFlavorDto;
+    public FlavorDto addFlavor(FlavorDto flavorDto) {
+        IceCreamFlavor flavor = transferToFlavor(flavorDto);
+        iceCreamFlavorRepository.save(flavor);
+        return flavorDto;
     }
 
     //Methode voor het verwijderen van een roomijs smaak
     @Override
-    public void deleteFlavor(Long id) {
-        if (iceCreamFlavorRepository.findById(id).isPresent()) {
-            iceCreamFlavorRepository.deleteById(id);
+    public void deleteFlavor(String name) {
+        if (iceCreamFlavorRepository.findById(name).isPresent()) {
+            iceCreamFlavorRepository.deleteById(name);
         } else {
-            throw new RecordNotFoundException("Geen smaak gevonden met id " + id + ".");
+            throw new RecordNotFoundException("Geen smaak gevonden met naam " + name + ".");
         }
     }
 
     //Methode voor het updaten van een roomijs smaak
     @Override
-    public IceCreamFlavorDto updateFlavor(Long id, IceCreamFlavorDto iceCreamFlavorDto) {
-        if (iceCreamFlavorRepository.findById(id).isPresent()) {
-            IceCreamFlavor iceCreamFlavor = iceCreamFlavorRepository.findById(id).get();
+    public FlavorDto updateFlavor(String name, FlavorDto flavorDto) {
+        if (iceCreamFlavorRepository.findById(name).isPresent()) {
+            IceCreamFlavor flavor = iceCreamFlavorRepository.findById(name).get();
 
-            iceCreamFlavor.setId(iceCreamFlavor.getId());
-            iceCreamFlavor.setName(iceCreamFlavorDto.getName());
+            flavor.setName(flavorDto.getName());
 
-            iceCreamFlavorRepository.save(iceCreamFlavor);
-            return iceCreamFlavorDto;
+            iceCreamFlavorRepository.save(flavor);
+            return flavorDto;
         } else {
-            throw new RecordNotFoundException("Geen smaak gevonden met id " + id + ".");
+            throw new RecordNotFoundException("Geen smaak gevonden met naam " + name + ".");
         }
     }
 
     //Methode om gegevens vanuit de dto aan de roomijs entity door te geven
-    public IceCreamFlavor transferToIceCreamFlavor(IceCreamFlavorDto dto) {
+    public IceCreamFlavor transferToFlavor(FlavorDto dto) {
         var flavor = new IceCreamFlavor();
-
-        flavor.setId(dto.getId());
         flavor.setName(dto.getName());
-
         return flavor;
     }
 
     //Methode om de gegevens vanuit de entity aan de roomijs dto door te geven
-    public IceCreamFlavorDto transferToIceCreamFlavorDto(IceCreamFlavor iceCreamFlavor) {
-        var dto = new IceCreamFlavorDto();
-
-        dto.setId(iceCreamFlavor.getId());
-        dto.setName(iceCreamFlavor.getName());
-
+    public FlavorDto transferToFlavorDto(IceCreamFlavor flavor) {
+        var dto = new FlavorDto();
+        dto.setName(flavor.getName());
         return dto;
     }
 }
