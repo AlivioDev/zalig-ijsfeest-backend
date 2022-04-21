@@ -33,6 +33,7 @@ public class ProductDto {
     private Double priceTwo;
     private Double priceThree;
 
+
     //Constructors
     //default constructor
     public ProductDto() {
@@ -69,14 +70,13 @@ public class ProductDto {
     }
 
     //constructor voor Profiterolles
-
-
     public ProductDto(Long id, String productName, Integer perPerson, Double priceOne) {
         this.id = id;
         this.productName = productName;
         this.perPerson = perPerson;
         this.priceOne = priceOne;
     }
+
 
     //Getters
     public Long getId() {
