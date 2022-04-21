@@ -70,6 +70,7 @@ public class ProductServiceImpl implements ProductService {
             product.setNumberOfPersonsOne(dto.getNumberOfPersonsOne());
             product.setNumberOfPersonsTwo(dto.getNumberOfPersonsTwo());
             product.setNumberOfPersonsThree(dto.getNumberOfPersonsThree());
+            product.setPerPerson(dto.getPerPerson());
             product.setPriceOne(dto.getPriceOne());
             product.setPriceTwo(dto.getPriceTwo());
             product.setPriceThree(dto.getPriceThree());
@@ -90,6 +91,7 @@ public class ProductServiceImpl implements ProductService {
         product.setNumberOfPersonsOne(dto.getNumberOfPersonsOne());
         product.setNumberOfPersonsTwo(dto.getNumberOfPersonsTwo());
         product.setNumberOfPersonsThree(dto.getNumberOfPersonsThree());
+        product.setPerPerson(dto.getPerPerson());
         product.setPriceOne(dto.getPriceOne());
         product.setPriceTwo(dto.getPriceTwo());
         product.setPriceThree(dto.getPriceThree());
@@ -106,6 +108,7 @@ public class ProductServiceImpl implements ProductService {
         dto.setNumberOfPersonsOne(product.getNumberOfPersonsOne());
         dto.setNumberOfPersonsTwo(product.getNumberOfPersonsTwo());
         dto.setNumberOfPersonsThree(product.getNumberOfPersonsThree());
+        dto.setPerPerson(product.getPerPerson());
         dto.setPriceOne(product.getPriceOne());
         dto.setPriceTwo(product.getPriceTwo());
         dto.setPriceThree(product.getPriceThree());

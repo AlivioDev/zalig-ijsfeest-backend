@@ -24,6 +24,10 @@ public class ProductDto {
 
     @NotBlank
     @NotNull
+    private Integer perPerson;
+
+    @NotBlank
+    @NotNull
     private Double priceOne;
 
     private Double priceTwo;
@@ -64,6 +68,15 @@ public class ProductDto {
         this.priceThree = priceThree;
     }
 
+    //constructor voor Profiterolles
+
+
+    public ProductDto(Long id, String productName, Integer perPerson, Double priceOne) {
+        this.id = id;
+        this.productName = productName;
+        this.perPerson = perPerson;
+        this.priceOne = priceOne;
+    }
 
     //Getters
     public Long getId() {
@@ -84,6 +97,10 @@ public class ProductDto {
 
     public String getNumberOfPersonsThree() {
         return numberOfPersonsThree;
+    }
+
+    public Integer getPerPerson() {
+        return perPerson;
     }
 
     public Double getPriceOne() {
@@ -118,6 +135,10 @@ public class ProductDto {
 
     public void setNumberOfPersonsThree(String numberOfPersonsThree) {
         this.numberOfPersonsThree = numberOfPersonsThree;
+    }
+
+    public void setPerPerson(Integer perPerson) {
+        this.perPerson = perPerson;
     }
 
     public void setPriceOne(Double priceOne) {

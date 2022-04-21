@@ -17,14 +17,14 @@ public class ZaligIjsfeestApplication {
     @Bean
     CommandLineRunner runProducts(ProductService productService) {
         return args -> {
-            productService.addProduct(new ProductDto(1001L, "Jstaart Rond", "4/6 personen", "8/10 personen", "14/16 personen", 20.00, 26.50, 39.00));
-            productService.addProduct(new ProductDto(1002L, "IJstaart Kerstster", "5/6 personen", "0/12 personen", 25.00, 35.00));
+            productService.addProduct(new ProductDto(1001L, "IJstaart Rond", "4/6 personen", "8/10 personen", "14/16 personen", 20.00, 26.50, 39.00));
+            productService.addProduct(new ProductDto(1002L, "IJstaart Kerstster", "5/6 personen", "10/12 personen", 25.00, 35.00));
             productService.addProduct(new ProductDto(1003L, "IJstaart Kerstklok", "5/6 personen", "14/16 personen", 25.00, 39.00));
             productService.addProduct(new ProductDto(1004L, "Cassata", "8/10 personen", 32.50));
             productService.addProduct(new ProductDto(1005L, "Tulband", "8/10 personen", 32.50));
             productService.addProduct(new ProductDto(1006L, "Kerstkathedraal", "8/10 personen", 35.00));
             productService.addProduct(new ProductDto(1007L, "Bombe", "3/4 personen", 19.50));
-            productService.addProduct(new ProductDto(1008L, "Profiterolles", "Vanaf 6 personen", 5.00));
+            productService.addProduct(new ProductDto(1008L, "Profiteroles", 6, 5.00));
         };
     }
 
@@ -77,7 +77,7 @@ public class ZaligIjsfeestApplication {
     CommandLineRunner runUsers(UserService userService) {
         return args -> {
 
-            userService.addUser(new UserDto("user", "user@test.nl", "user", "testklant", "1234", "012-3456789", "USER"));
+            userService.addUser(new UserDto("user01", "123456", "user@test.nl", "test", "testklant", "012-3456789", "USER"));
 
         };
     }
@@ -85,7 +85,7 @@ public class ZaligIjsfeestApplication {
     @Bean
     CommandLineRunner runAdmins(AdminService adminService) {
         return args -> {
-            adminService.addAdmin(new AdminDto("admin", "admin@test.nl", "1234", "ADMIN"));
+            adminService.addAdmin(new AdminDto("admin01", "123456", "admin@test.nl", "ADMIN"));
         };
     }
 

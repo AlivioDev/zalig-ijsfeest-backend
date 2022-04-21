@@ -20,6 +20,7 @@ public class Product {
     private String numberOfPersonsOne;
     private String numberOfPersonsTwo;
     private String numberOfPersonsThree;
+    private Integer perPerson;
     private Double priceOne;
     private Double priceTwo;
     private Double priceThree;
@@ -44,6 +45,10 @@ public class Product {
 
     public String getNumberOfPersonsThree() {
         return numberOfPersonsThree;
+    }
+
+    public Integer getPerPerson() {
+        return perPerson;
     }
 
     public Double getPriceOne() {
@@ -77,6 +82,10 @@ public class Product {
 
     public void setNumberOfPersonsThree(String numberOfPersonsThree) {
         this.numberOfPersonsThree = numberOfPersonsThree;
+    }
+
+    public void setPerPerson(Integer perPerson) {
+        this.perPerson = perPerson;
     }
 
     public void setPriceOne(Double priceOne) {
