@@ -4,7 +4,6 @@ import nl.novi.zaligijsfeest.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,20 +34,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("testklantadmin").password("{noop}5678").roles("ADMIN")
+                .withUser("admin01").password("{noop}123456").roles("ADMIN")
                 .and()
-                .withUser("testklantuser").password("{noop}1234").roles("USER");
+                .withUser("user01").password("{noop}123456").roles("USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic();
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/auth").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/users/**").hasAnyAuthority("USER");
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN", "USER");
-        http.authorizeRequests().anyRequest().authenticated();
-        http.addFilterBefore(new JwtRequestFilter(jwtService, userDetailsService()), UsernamePasswordAuthenticationFilter.class);
+        http
+                .httpBasic()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/open/**").permitAll()
+                .antMatchers("/users/**").hasRole("USER")
+                .antMatchers("/admins/**").hasAnyRole("ADMIN", "USER")
+                .anyRequest().authenticated()
+                .and()
+                .cors()
+                .and()
+                .addFilterBefore(new JwtRequestFilter(jwtService, userDetailsService()), UsernamePasswordAuthenticationFilter.class)
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }

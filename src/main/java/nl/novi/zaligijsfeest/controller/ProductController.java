@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
+@RequestMapping("/open")
 public class ProductController {
 
     //koppeling met de servicelaag om de methoden te kunnen gebruiken

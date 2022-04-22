@@ -11,7 +11,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/sorbetflavors")
+@CrossOrigin
+@RequestMapping(path = "/open/sorbetflavors")
 public class SorbetFlavorController {
 
     //koppeling met de servicelaag om de methoden te kunnen gebruiken
