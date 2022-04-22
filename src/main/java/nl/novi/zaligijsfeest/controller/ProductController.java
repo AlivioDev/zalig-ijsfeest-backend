@@ -1,12 +1,13 @@
 package nl.novi.zaligijsfeest.controller;
 
 import nl.novi.zaligijsfeest.dto.ProductDto;
+import nl.novi.zaligijsfeest.model.Product;
+import nl.novi.zaligijsfeest.repository.ProductRepository;
 import nl.novi.zaligijsfeest.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -17,6 +18,9 @@ public class ProductController {
     //koppeling met de servicelaag om de methoden te kunnen gebruiken
     @Autowired
     ProductService productService;
+
+    @Autowired
+    ProductRepository productRepository;
     
     //een GET-request voor alle ijstaarten
     @GetMapping(path = "/products")
@@ -38,6 +42,8 @@ public class ProductController {
         ProductDto product = productService.addProduct(productDto);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
+
+
 
     //een DELETE-request voor 1 ijstaart
     @DeleteMapping("/products/{id}")
