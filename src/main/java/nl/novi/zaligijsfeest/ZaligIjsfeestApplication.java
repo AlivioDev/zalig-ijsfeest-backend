@@ -72,22 +72,22 @@ public class ZaligIjsfeestApplication {
             sorbetFlavorService.addFlavor(new FlavorDto("framboos"));
         };
     }
+//
+//    @Bean
+//    CommandLineRunner runUsers(UserService userService) {
+//        return args -> {
+//
+//            userService.addUser(new UserDto("user01", "123456", "user@test.nl", "test", "testklant", "012-3456789", "USER"));
+//
+//        };
+//    }
 
-    @Bean
-    CommandLineRunner runUsers(UserService userService) {
-        return args -> {
-
-            userService.addUser(new UserDto("user01", "123456", "user@test.nl", "test", "testklant", "012-3456789", "USER"));
-
-        };
-    }
-
-    @Bean
-    CommandLineRunner runAdmins(AdminService adminService) {
-        return args -> {
-            adminService.addAdmin(new AdminDto("admin01", "123456", "admin@test.nl", "ADMIN"));
-        };
-    }
+//    @Bean
+//    CommandLineRunner runAdmins(AdminService adminService) {
+//        return args -> {
+//            adminService.addAdmin(new AdminDto("admin01", "123456", "admin@test.nl", "ADMIN"));
+//        };
+//    }
 
     @Bean
     CommandLineRunner runOrders(OrderService orderService) {

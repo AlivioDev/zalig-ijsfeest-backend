@@ -2,15 +2,18 @@ package nl.novi.zaligijsfeest.service;
 
 import nl.novi.zaligijsfeest.dto.UserDto;
 import nl.novi.zaligijsfeest.exception.RecordNotFoundException;
+import nl.novi.zaligijsfeest.model.Authority;
 import nl.novi.zaligijsfeest.model.User;
 import nl.novi.zaligijsfeest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,6 +21,9 @@ public class UserServiceImpl implements UserService {
     //Koppeling met de repository
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     //Methode voor het ophalen van alle gebruikers
     @Override
@@ -47,6 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto addUser(UserDto userDto) {
         User user = toUser(userDto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return userDto;
     }
@@ -69,13 +76,36 @@ public class UserServiceImpl implements UserService {
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
             user.setPhoneNumber(userDto.getPhoneNumber());
-            user.setRole(userDto.getRole());
+            user.setAuthorities(userDto.getAuthorities());
 
             userRepository.save(user);
             return userDto;
         } else {
             throw new RecordNotFoundException("Geen gegevens gevonden met gebruikersnaam " + username + ".");
         }
+    }
+
+    public Set<Authority> getAuthorities(String username) {
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
+        User user = userRepository.findById(username).get();
+        UserDto userDto = fromUser(user);
+        return userDto.getAuthorities();
+    }
+
+    public void addAuthority(String username, String authority) {
+
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
+        User user = userRepository.findById(username).get();
+        user.addAuthority(new Authority(username, authority));
+        userRepository.save(user);
+    }
+
+    public void removeAuthority(String username, String authority) {
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
+        User user = userRepository.findById(username).get();
+        Authority authorityToRemove = user.getAuthorities().stream().filter((a) -> a.getAuthority().equalsIgnoreCase(authority)).findAny().get();
+        user.removeAuthority(authorityToRemove);
+        userRepository.save(user);
     }
 
     //Methode om de gegevens vanuit de dto aan de entity door te geven
@@ -88,7 +118,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setPhoneNumber(userDto.getPhoneNumber());
-        user.setRole(userDto.getRole());
+        user.setAuthorities(userDto.getAuthorities());
 
         return user;
     }
@@ -103,7 +133,7 @@ public class UserServiceImpl implements UserService {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setPhoneNumber(user.getPhoneNumber());
-        userDto.setRole(user.getRole());
+        userDto.setAuthorities(user.getAuthorities());
 
         return userDto;
     }

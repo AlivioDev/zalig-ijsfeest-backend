@@ -1,6 +1,8 @@
 package nl.novi.zaligijsfeest.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table (name = "users")
@@ -25,8 +27,13 @@ public class User {
     @Column
     private String phoneNumber;
 
-    @Column
-    private String role;
+    @OneToMany(
+            targetEntity = Authority.class,
+            mappedBy = "username",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<Authority> authorities = new HashSet<>();
 
 
     //Getters
@@ -54,10 +61,9 @@ public class User {
         return phoneNumber;
     }
 
-    public String getRole() {
-        return role;
+    public Set<Authority> getAuthorities() {
+        return authorities;
     }
-
 
     //Setters
     public void setUsername(String username) {
@@ -84,8 +90,15 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public void addAuthority(Authority authority) {
+        this.authorities.add(authority);
+    }
+    public void removeAuthority(Authority authority) {
+        this.authorities.remove(authority);
     }
 
 }
