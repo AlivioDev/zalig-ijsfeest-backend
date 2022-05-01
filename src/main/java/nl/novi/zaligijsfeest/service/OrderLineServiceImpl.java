@@ -68,8 +68,10 @@ public class OrderLineServiceImpl implements OrderLineService {
             orderLine.setId(orderLine.getId());
             orderLine.setProductName(orderLineDto.getProductName());
             orderLine.setFlavors(orderLineDto.getFlavors());
-            orderLine.setNumberOfPersons(orderLineDto.getNumberOfPersons());
+            orderLine.setOptions(orderLineDto.getOptions());
+            orderLine.setPersons(orderLineDto.getPersons());
             orderLine.setPrice(orderLineDto.getPrice());
+            orderLine.setOrder(orderLineDto.getOrder());
 
             orderLineRepository.save(orderLine);
             return orderLineDto;
@@ -85,8 +87,10 @@ public class OrderLineServiceImpl implements OrderLineService {
         orderLine.setId(orderLineDto.getId());
         orderLine.setProductName(orderLineDto.getProductName());
         orderLine.setFlavors(orderLineDto.getFlavors());
-        orderLine.setNumberOfPersons(orderLineDto.getNumberOfPersons());
+        orderLine.setOptions(orderLineDto.getOptions());
+        orderLine.setPersons(orderLineDto.getPersons());
         orderLine.setPrice(orderLineDto.getPrice());
+        orderLine.setOrder(orderLineDto.getOrder());
 
         return orderLine;
     }
@@ -98,8 +102,10 @@ public class OrderLineServiceImpl implements OrderLineService {
         orderLineDto.setId(orderLine.getId());
         orderLineDto.setProductName(orderLine.getProductName());
         orderLineDto.setFlavors(orderLine.getFlavors());
-        orderLineDto.setNumberOfPersons(orderLine.getNumberOfPersons());
+        orderLineDto.setOptions(orderLine.getOptions());
+        orderLineDto.setPersons(orderLine.getPersons());
         orderLineDto.setPrice(orderLine.getPrice());
+        orderLineDto.setOrder(orderLine.getOrder());
 
         return orderLineDto;
     }

@@ -1,5 +1,4 @@
-package nl.novi.zaligijsfeest.service;
-
+package nl.novi.zaligijsfeest.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,10 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-
 @Service
-public class JwtService {
-    private final String SECRET_KEY = "secret";
+public class JwtUtil {
+
+    private final static String SECRET_KEY = "secret";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -43,13 +42,11 @@ public class JwtService {
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
-        long validPeriod = 1000 * 60 * 60 * 24 * 10; //10 dagen in ms
-        long currentTime = System.currentTimeMillis();
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
-                .setIssuedAt(new Date(currentTime))
-                .setExpiration(new Date(currentTime + validPeriod))
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 10))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
@@ -58,5 +55,5 @@ public class JwtService {
         final String username = extractUsername(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
-}
 
+}

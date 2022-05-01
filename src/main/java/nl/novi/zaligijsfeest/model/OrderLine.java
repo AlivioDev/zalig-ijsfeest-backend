@@ -12,12 +12,13 @@ public class OrderLine {
 
     private String productName;
     private String flavors;
-    private String numberOfPersons;
-    private String Price;
+    private String options;
+    private Integer persons;
+    private Double price;
 
-    //TODO relatie leggen met order
-//    @ManyToOne
-//    Order order;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     //getters
     public Long getId() {
@@ -28,16 +29,24 @@ public class OrderLine {
         return productName;
     }
 
-    public String getNumberOfPersons() {
-        return numberOfPersons;
-    }
-
     public String getFlavors() {
         return flavors;
     }
 
-    public String getPrice() {
-        return Price;
+    public String getOptions() {
+        return options;
+    }
+
+    public Integer getPersons() {
+        return persons;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     //setters
@@ -49,15 +58,23 @@ public class OrderLine {
         this.productName = productName;
     }
 
-    public void setNumberOfPersons(String numberOfPersons) {
-        this.numberOfPersons = numberOfPersons;
-    }
-
     public void setFlavors(String flavors) {
         this.flavors = flavors;
     }
 
-    public void setPrice(String price) {
-        Price = price;
+    public void setOptions(String options) {
+        this.options = options;
+    }
+
+    public void setPersons(Integer persons) {
+        this.persons = persons;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

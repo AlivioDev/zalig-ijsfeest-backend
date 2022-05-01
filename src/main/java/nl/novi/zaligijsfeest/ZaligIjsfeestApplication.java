@@ -72,27 +72,27 @@ public class ZaligIjsfeestApplication {
             sorbetFlavorService.addFlavor(new FlavorDto("framboos"));
         };
     }
+//
+//    @Bean
+//    CommandLineRunner runUsers(UserService userService) {
+//        return args -> {
+//
+//            userService.addUser(new UserDto("user01", "123456", "user@test.nl", "test", "testklant", "012-3456789", "USER"));
+//
+//        };
+//    }
 
-    @Bean
-    CommandLineRunner runUsers(UserService userService) {
-        return args -> {
+//    @Bean
+//    CommandLineRunner runAdmins(AdminService adminService) {
+//        return args -> {
+//            adminService.addAdmin(new AdminDto("admin01", "123456", "admin@test.nl", "ADMIN"));
+//        };
+//    }
 
-            userService.addUser(new UserDto("user01", "123456", "user@test.nl", "test", "testklant", "012-3456789", "USER"));
-
-        };
-    }
-
-    @Bean
-    CommandLineRunner runAdmins(AdminService adminService) {
-        return args -> {
-            adminService.addAdmin(new AdminDto("admin01", "123456", "admin@test.nl", "ADMIN"));
-        };
-    }
-
-    @Bean
-    CommandLineRunner runOrders(OrderService orderService) {
-        return args -> {
-          orderService.addOrder(new OrderDto(1100L, "Kerstster, 4/6 personen, banaan, aardbei", 45.00, "24-12-2022 12:30", true));
-        };
-    }
+//    @Bean
+//    CommandLineRunner runOrders(OrderService orderService) {
+//        return args -> {
+//          orderService.addOrder(new OrderDto(1100L, "Kerstster, 4/6 personen, banaan, aardbei", 45.00, "24-12-2022 12:30", true));
+//        };
+//    }
 }

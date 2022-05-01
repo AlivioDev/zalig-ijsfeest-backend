@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@CrossOrigin("http://localhost:3000")
-@RequestMapping(path = "/orders")
+@CrossOrigin
+@RequestMapping(path = "/open/orders")
 public class OrderController {
 
     //Koppeling met de servicelaag om de methoden te kunnen gebruiken
@@ -26,7 +26,7 @@ public class OrderController {
     }
 
     //en GET-request voor 1 bestelling
-    @GetMapping(path ="/{id")
+    @GetMapping(path ="/{id}")
     public ResponseEntity<Object> getOrder(@PathVariable("id") Long id) {
         OrderDto orderDto = orderService.getOrder(id);
         return new ResponseEntity<>(orderDto, HttpStatus.OK);
@@ -51,5 +51,12 @@ public class OrderController {
     public ResponseEntity<Object> updateOrder(@PathVariable("id") Long id, @RequestBody OrderDto orderDto) {
         OrderDto order = orderService.updateOrder(id, orderDto);
         return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+    
+    @PutMapping("/{id}/{orderline}")
+    public ResponseEntity<Object> assignToOrder(@PathVariable("id") Long orderId,
+                                                @PathVariable("orderline") Long orderLineId){
+        orderService.assignOrderLineToOrder(orderId, orderLineId);
+        return ResponseEntity.noContent().build();
     }
 }

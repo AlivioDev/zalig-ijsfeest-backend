@@ -1,7 +1,10 @@
 package nl.novi.zaligijsfeest.dto;
 
+import nl.novi.zaligijsfeest.model.Authority;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 public class UserDto {
 
@@ -23,19 +26,19 @@ public class UserDto {
     private String lastName;
 
     @NotBlank
-    // hier de check verwijderd omdat ik daarvoor in de frontend een iets betere check heb gemaakt
     private String phoneNumber;
 
-    @NotBlank
     private String role;
+
+    private Set<Authority> authorities;
+
 
     //Constructors
     //Default
     public UserDto() {
     }
 
-    //volledig exclusief foto
-    public UserDto(String username, String password, String email, String firstName, String lastName, String phoneNumber, String role) {
+    public UserDto(String username, String password, String email, String firstName, String lastName, String phoneNumber, String role, Set<Authority> authorities) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -43,6 +46,7 @@ public class UserDto {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.role = role;
+        this.authorities = authorities;
     }
 
     //Getters
@@ -74,13 +78,17 @@ public class UserDto {
         return role;
     }
 
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
     //Setters
     public void setUsername(String userName) {
         this.username = userName;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = (password);
     }
 
     public void setEmail(String email) {
@@ -101,5 +109,9 @@ public class UserDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 }
