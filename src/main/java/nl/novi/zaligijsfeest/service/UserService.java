@@ -13,8 +13,7 @@ public interface UserService {
     void deleteUser(String username);
     UserDto updateUser(String username, UserDto userDto);
     Set<Authority> getAuthorities(String username);
-
     void addAuthority(String username, String authority) ;
-
     void removeAuthority(String username, String authority) ;
+    void assignOrderToUser(String userId, Long orderId);
 }

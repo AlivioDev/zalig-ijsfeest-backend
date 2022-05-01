@@ -3,7 +3,9 @@ package nl.novi.zaligijsfeest.service;
 import nl.novi.zaligijsfeest.dto.UserDto;
 import nl.novi.zaligijsfeest.exception.RecordNotFoundException;
 import nl.novi.zaligijsfeest.model.Authority;
+import nl.novi.zaligijsfeest.model.Order;
 import nl.novi.zaligijsfeest.model.User;
+import nl.novi.zaligijsfeest.repository.OrderRepository;
 import nl.novi.zaligijsfeest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     //Methode voor het ophalen van alle gebruikers
     @Override
@@ -76,6 +81,7 @@ public class UserServiceImpl implements UserService {
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
             user.setPhoneNumber(userDto.getPhoneNumber());
+            user.setRole(userDto.getRole());
             user.setAuthorities(userDto.getAuthorities());
 
             userRepository.save(user);
@@ -108,6 +114,19 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    public void assignOrderToUser(String userId, Long orderId){
+        Optional<User> optionalUser= userRepository.findById(userId);
+        Optional<Order> optionalOrder= orderRepository.findById(orderId);
+        if(optionalOrder.isPresent() && optionalUser.isPresent()){
+            User user = optionalUser.get();
+            Order order = optionalOrder.get();
+            List<Order> orders = user.getOrders();
+            orders.add(order);
+            user.setOrders(orders);
+            userRepository.save(user);
+        }
+    }
+
     //Methode om de gegevens vanuit de dto aan de entity door te geven
     public User toUser(UserDto userDto) {
         var user = new User();
@@ -118,6 +137,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setRole(userDto.getRole());
         user.setAuthorities(userDto.getAuthorities());
 
         return user;
@@ -133,8 +153,10 @@ public class UserServiceImpl implements UserService {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setPhoneNumber(user.getPhoneNumber());
+        userDto.setRole(user.getRole());
         userDto.setAuthorities(user.getAuthorities());
 
         return userDto;
     }
+
 }

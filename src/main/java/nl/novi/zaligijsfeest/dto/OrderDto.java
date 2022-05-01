@@ -1,18 +1,18 @@
 package nl.novi.zaligijsfeest.dto;
 
 
+import nl.novi.zaligijsfeest.model.OrderLine;
+import nl.novi.zaligijsfeest.model.User;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class OrderDto {
     //Variabelen
     @NotBlank
     @NotNull
     private Long id;
-
-    @NotBlank
-    @NotNull
-    private String orderLine;
 
     @NotBlank
     @NotNull
@@ -26,28 +26,34 @@ public class OrderDto {
     @NotNull
     private Boolean paymentStatus;
 
+    private List<OrderLine> orderLines;
+
+    private User user;
+
     //constructors
     //default
     public OrderDto() {
     }
 
     //volledig
-    public OrderDto(Long id, String orderLine, Double orderAmount, String pickupDate, Boolean paymentStatus) {
+    public OrderDto(Long id,
+                    Double orderAmount,
+                    String pickupDate,
+                    Boolean paymentStatus,
+                    List<OrderLine> orderLines,
+                    User user) {
         this.id = id;
-        this.orderLine = orderLine;
         this.orderAmount = orderAmount;
         this.pickupDate = pickupDate;
         this.paymentStatus = paymentStatus;
+        this.orderLines = orderLines;
+        this.user = user;
     }
+
 
     //getters
-
     public Long getId() {
         return id;
-    }
-
-    public String getOrderLine() {
-        return orderLine;
     }
 
     public Double getOrderAmount() {
@@ -62,13 +68,17 @@ public class OrderDto {
         return paymentStatus;
     }
 
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     //setters
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setOrderLine(String orderLine) {
-        this.orderLine = orderLine;
     }
 
     public void setOrderAmount(Double orderAmount) {
@@ -81,5 +91,13 @@ public class OrderDto {
 
     public void setPaymentStatus(Boolean paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public void setOrderLines(List<OrderLine> orderLines) {
+        this.orderLines = orderLines;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

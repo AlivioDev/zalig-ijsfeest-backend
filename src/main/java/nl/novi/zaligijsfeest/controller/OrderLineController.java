@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@CrossOrigin("http://localhost:3000")
-@RequestMapping(path = "/orderlines")
+@CrossOrigin
+@RequestMapping(path = "/open/orderlines")
 public class OrderLineController {
 
     //Koppeling met de servicelaag om de methoden te kunnen gebruiken
@@ -28,7 +28,7 @@ public class OrderLineController {
     }
 
     //en GET-request voor 1 bestelregel
-    @GetMapping(path ="/{id")
+    @GetMapping(path ="/{id}")
     public ResponseEntity<Object> getOrderLine(@PathVariable("id") Long id) {
         OrderLineDto orderLineDto = orderLineService.getOrderLine(id);
         return new ResponseEntity<>(orderLineDto, HttpStatus.OK);

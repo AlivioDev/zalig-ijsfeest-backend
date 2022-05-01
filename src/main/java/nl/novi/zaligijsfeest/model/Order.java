@@ -1,6 +1,8 @@
 package nl.novi.zaligijsfeest.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table (name = "orders")
@@ -10,22 +12,25 @@ public class Order {
     @GeneratedValue
     private Long id;
 
-
     private Double orderAmount;
     private String pickupDate;
     private Boolean paymentStatus;
 
-    //TODO relatie leggen met orderline
-//    @OneToMany
-    private String orderLine;
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    private List<OrderLine> orderLines = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     //getters
     public Long getId() {
         return id;
     }
 
-    public String getOrderLine() {
-        return orderLine;
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
     }
 
     public Double getOrderAmount() {
@@ -40,13 +45,17 @@ public class Order {
         return paymentStatus;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     //setters
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setOrderLine(String orderLine) {
-        this.orderLine = orderLine;
+    public void setOrderLines(List<OrderLine> orderLines) {
+        this.orderLines = orderLines;
     }
 
     public void setOrderAmount(Double orderAmount) {
@@ -61,4 +70,7 @@ public class Order {
         this.paymentStatus = paymentStatus;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

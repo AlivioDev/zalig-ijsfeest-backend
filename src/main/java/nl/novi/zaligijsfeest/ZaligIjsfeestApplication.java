@@ -89,10 +89,10 @@ public class ZaligIjsfeestApplication {
 //        };
 //    }
 
-    @Bean
-    CommandLineRunner runOrders(OrderService orderService) {
-        return args -> {
-          orderService.addOrder(new OrderDto(1100L, "Kerstster, 4/6 personen, banaan, aardbei", 45.00, "24-12-2022 12:30", true));
-        };
-    }
+//    @Bean
+//    CommandLineRunner runOrders(OrderService orderService) {
+//        return args -> {
+//          orderService.addOrder(new OrderDto(1100L, "Kerstster, 4/6 personen, banaan, aardbei", 45.00, "24-12-2022 12:30", true));
+//        };
+//    }
 }

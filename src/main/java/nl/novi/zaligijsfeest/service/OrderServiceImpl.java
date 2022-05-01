@@ -3,6 +3,8 @@ package nl.novi.zaligijsfeest.service;
 import nl.novi.zaligijsfeest.dto.OrderDto;
 import nl.novi.zaligijsfeest.exception.RecordNotFoundException;
 import nl.novi.zaligijsfeest.model.Order;
+import nl.novi.zaligijsfeest.model.OrderLine;
+import nl.novi.zaligijsfeest.repository.OrderLineRepository;
 import nl.novi.zaligijsfeest.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    OrderLineRepository orderLineRepository;
 
     //methode voor het opvragen van alle orders
     @Override
@@ -65,10 +70,10 @@ public class OrderServiceImpl implements OrderService{
             Order order = orderRepository.findById(id).get();
 
             order.setId(order.getId());
-            order.setOrderLine(orderDto.getOrderLine());
             order.setOrderAmount(orderDto.getOrderAmount());
             order.setPaymentStatus(orderDto.getPaymentStatus());
             order.setPickupDate(orderDto.getPickupDate());
+            order.setOrderLines(orderDto.getOrderLines());
 
             orderRepository.save(order);
             return orderDto;
@@ -77,12 +82,25 @@ public class OrderServiceImpl implements OrderService{
         }
     }
 
+    public void assignOrderLineToOrder(Long orderId, Long orderLineId){
+        Optional<Order> optionalOrder= orderRepository.findById(orderId);
+        Optional<OrderLine> optionalOrderLine= orderLineRepository.findById(orderLineId);
+        if(optionalOrderLine.isPresent() && optionalOrder.isPresent()){
+            Order order = optionalOrder.get();
+            OrderLine orderLine = optionalOrderLine.get();
+            List<OrderLine> orderLines = order.getOrderLines();
+            orderLines.add(orderLine);
+            order.setOrderLines(orderLines);
+            orderRepository.save(order);
+        }
+    }
+
     //Methode om de gegevens vanuit de dto aan de entity door te geven
     public Order toOrder(OrderDto orderDto) {
         var order = new Order();
 
         order.setId(orderDto.getId());
-        order.setOrderLine(orderDto.getOrderLine());
+        order.setOrderLines(orderDto.getOrderLines());
         order.setOrderAmount(orderDto.getOrderAmount());
         order.setPaymentStatus(orderDto.getPaymentStatus());
         order.setPickupDate(orderDto.getPickupDate());
@@ -95,11 +113,13 @@ public class OrderServiceImpl implements OrderService{
         var orderDto = new OrderDto();
 
         orderDto.setId(order.getId());
-        orderDto.setOrderLine(order.getOrderLine());
+        orderDto.setOrderLines(order.getOrderLines());
         orderDto.setOrderAmount(order.getOrderAmount());
         orderDto.setPaymentStatus(order.getPaymentStatus());
         orderDto.setPickupDate(order.getPickupDate());
 
         return orderDto;
     }
+
+
 }

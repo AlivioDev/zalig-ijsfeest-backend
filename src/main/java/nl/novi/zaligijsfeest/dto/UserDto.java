@@ -26,8 +26,9 @@ public class UserDto {
     private String lastName;
 
     @NotBlank
-    // hier de check verwijderd omdat ik daarvoor in de frontend een iets betere check heb gemaakt
     private String phoneNumber;
+
+    private String role;
 
     private Set<Authority> authorities;
 
@@ -37,14 +38,14 @@ public class UserDto {
     public UserDto() {
     }
 
-    //volledig exclusief foto
-    public UserDto(String username, String password, String email, String firstName, String lastName, String phoneNumber, Set<Authority> authorities) {
+    public UserDto(String username, String password, String email, String firstName, String lastName, String phoneNumber, String role, Set<Authority> authorities) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.role = role;
         this.authorities = authorities;
     }
 
@@ -71,6 +72,10 @@ public class UserDto {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public Set<Authority> getAuthorities() {
@@ -100,6 +105,10 @@ public class UserDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setAuthorities(Set<Authority> authorities) {

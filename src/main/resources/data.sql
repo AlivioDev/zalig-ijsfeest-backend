@@ -43,9 +43,9 @@
  insert into sorbetflavors values ('appel');
  insert into sorbetflavors values ('framboos');
 
- insert into users (username, email, first_name, last_name, password, phone_number) VALUES ('user', 'user@test.nl', 'user', 'testklant', '$2a$12$Ps76LUFK8iIZubQfFvowouGA0iz4u1MbKyvdVQnOHBX5z7YIFSU2q', '0123456789');
- insert into users (username, email, password) VALUES ('admin', 'admin@test.nl', '$2a$12$Ps76LUFK8iIZubQfFvowouGA0iz4u1MbKyvdVQnOHBX5z7YIFSU2q');
+ insert into users (username, email, first_name, last_name, password, phone_number) VALUES ('user01', 'user@test.nl', 'test', 'user', '$2a$10$/bLChEVlakQB4chrCsFw6.gxDFz9qSwlR4.apaxdTKxd3/mQM/mZi', '012-3456789');
+ insert into users (username, email, password) VALUES ('admin01', 'admin@test.nl', '$2a$10$n9WtjvLx7mhAHgERb7Px6.g7zCYnveEvCGwNCyqUNSrmguCj4y9KG');
 
- insert into authorities (username, authority) VALUES ('user', 'ROLE_USER');
- insert into authorities (username, authority) VALUES ('admin', 'ROLE_ADMIN');
+ insert into authorities (username, authority) VALUES ('user01', 'USER');
+ insert into authorities (username, authority) VALUES ('admin01', 'ADMIN');
 

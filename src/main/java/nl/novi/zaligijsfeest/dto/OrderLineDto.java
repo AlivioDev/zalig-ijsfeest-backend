@@ -1,5 +1,7 @@
 package nl.novi.zaligijsfeest.dto;
 
+import nl.novi.zaligijsfeest.model.Order;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -15,11 +17,15 @@ public class OrderLineDto {
 
     @NotBlank
     @NotNull
-    private String numberOfPersons;
+    private String options;
+
+    private Integer persons;
 
     @NotBlank
     @NotNull
-    private String Price;
+    private Double price;
+
+    private Order order;
 
     //constructors
     //default
@@ -27,12 +33,14 @@ public class OrderLineDto {
     }
 
     //volledig
-    public OrderLineDto(Long id, String productName, String flavors, String numberOfPersons, String price) {
+    public OrderLineDto(Long id, String productName, String flavors, String options, Integer persons, Double price, Order order) {
         this.id = id;
         this.productName = productName;
         this.flavors = flavors;
-        this.numberOfPersons = numberOfPersons;
-        Price = price;
+        this.options = options;
+        this.persons = persons;
+        this.price = price;
+        this.order = order;
     }
 
     //getters
@@ -48,12 +56,20 @@ public class OrderLineDto {
         return flavors;
     }
 
-    public String getNumberOfPersons() {
-        return numberOfPersons;
+    public String getOptions() {
+        return options;
     }
 
-    public String getPrice() {
-        return Price;
+    public Integer getPersons() {
+        return persons;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     //setters
@@ -69,11 +85,19 @@ public class OrderLineDto {
         this.flavors = flavors;
     }
 
-    public void setNumberOfPersons(String numberOfPersons) {
-        this.numberOfPersons = numberOfPersons;
+    public void setOptions(String options) {
+        this.options = options;
     }
 
-    public void setPrice(String price) {
-        Price = price;
+    public void setPersons(Integer persons) {
+        this.persons = persons;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setOrder(Order order) {
+        this.order = this.order;
     }
 }
