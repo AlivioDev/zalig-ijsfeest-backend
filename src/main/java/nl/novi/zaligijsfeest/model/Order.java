@@ -1,5 +1,7 @@
 package nl.novi.zaligijsfeest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,24 +9,25 @@ import java.util.List;
 @Entity
 @Table (name = "orders")
 public class Order {
-    //Variabelen
+
     @Id
     @GeneratedValue
     private Long id;
 
     private Double orderAmount;
     private String pickupDate;
-    private Boolean paymentStatus;
+    private String paymentStatus;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<OrderLine> orderLines = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "username")
     private User user;
 
 
-    //getters
+
     public Long getId() {
         return id;
     }
@@ -41,7 +44,7 @@ public class Order {
         return pickupDate;
     }
 
-    public Boolean getPaymentStatus() {
+    public String getPaymentStatus() {
         return paymentStatus;
     }
 
@@ -49,7 +52,7 @@ public class Order {
         return user;
     }
 
-    //setters
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -66,7 +69,7 @@ public class Order {
         this.pickupDate = pickupDate;
     }
 
-    public void setPaymentStatus(Boolean paymentStatus) {
+    public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
 

@@ -23,7 +23,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     JwtUtil jwtUtl;
@@ -48,7 +48,7 @@ public class AuthController {
             throw new Exception("Incorrect username or password", ex);
         }
 
-        final UserDetails userDetails = userDetailsService
+        final UserDetails userDetails = customUserDetailsService
                 .loadUserByUsername(username);
 
         final String jwt = jwtUtl.generateToken(userDetails);

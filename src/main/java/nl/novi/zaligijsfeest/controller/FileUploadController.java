@@ -2,22 +2,23 @@ package nl.novi.zaligijsfeest.controller;
 
 import nl.novi.zaligijsfeest.model.FileUpload;
 import nl.novi.zaligijsfeest.repository.FileUploadRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
 @RestController
-@RequestMapping(path = "/open")
+@RequestMapping(path = "")
 @CrossOrigin
 public class FileUploadController {
 
-    @Autowired
-    FileUploadRepository fileUploadRepository;
 
+    private final FileUploadRepository fileUploadRepository;
 
-    //een POST-request voor een productafbeelding
+    public FileUploadController(FileUploadRepository fileUploadRepository) {
+        this.fileUploadRepository = fileUploadRepository;
+    }
+
     @PostMapping(path = "/upload")
     public String handleFileUpload(@RequestBody MultipartFile file) {
         FileUpload image = new FileUpload();

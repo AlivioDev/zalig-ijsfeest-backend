@@ -1,14 +1,10 @@
 package nl.novi.zaligijsfeest.dto;
 
-// Maak variabelen aan voor de volgende ijstaart-gegevens: id, productnaam, personenopties, prijsopties
-// Maak constructors
-// Maak getters en setters
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class ProductDto {
-    //variabelen
+
     private Long id;
 
     @NotBlank
@@ -22,9 +18,6 @@ public class ProductDto {
     private String numberOfPersonsTwo;
     private String numberOfPersonsThree;
 
-    @NotBlank
-    @NotNull
-    private Integer perPerson;
 
     @NotBlank
     @NotNull
@@ -34,12 +27,9 @@ public class ProductDto {
     private Double priceThree;
 
 
-    //Constructors
-    //default constructor
     public ProductDto() {
     }
 
-    //constructor voor ijstaart met 1 personen optie en 1 prijs optie
     public ProductDto(Long id, String productName, String numberOfPersonsOne, Double priceOne) {
         this.id = id;
         this.productName = productName;
@@ -47,7 +37,6 @@ public class ProductDto {
         this.priceOne = priceOne;
     }
 
-    //constructor voor ijstaart met 2 personen opties en 2 prijs opties
     public ProductDto(Long id, String productName, String numberOfPersonsOne, String numberOfPersonsTwo, Double priceOne, Double priceTwo) {
         this.id = id;
         this.productName = productName;
@@ -57,7 +46,6 @@ public class ProductDto {
         this.priceTwo = priceTwo;
     }
 
-    //constructor voor ijstaart met 3 personen opties en 3 prijs opties (volledige constructor)
     public ProductDto(Long id, String productName, String numberOfPersonsOne, String numberOfPersonsTwo, String numberOfPersonsThree, Double priceOne, Double priceTwo, Double priceThree) {
         this.id = id;
         this.productName = productName;
@@ -69,16 +57,7 @@ public class ProductDto {
         this.priceThree = priceThree;
     }
 
-    //constructor voor Profiterolles
-    public ProductDto(Long id, String productName, Integer perPerson, Double priceOne) {
-        this.id = id;
-        this.productName = productName;
-        this.perPerson = perPerson;
-        this.priceOne = priceOne;
-    }
 
-
-    //Getters
     public Long getId() {
         return id;
     }
@@ -99,10 +78,6 @@ public class ProductDto {
         return numberOfPersonsThree;
     }
 
-    public Integer getPerPerson() {
-        return perPerson;
-    }
-
     public Double getPriceOne() {
         return priceOne;
     }
@@ -116,7 +91,6 @@ public class ProductDto {
     }
 
 
-    //Setters
     public void setId(Long id) {
         this.id = id;
     }
@@ -136,11 +110,6 @@ public class ProductDto {
     public void setNumberOfPersonsThree(String numberOfPersonsThree) {
         this.numberOfPersonsThree = numberOfPersonsThree;
     }
-
-    public void setPerPerson(Integer perPerson) {
-        this.perPerson = perPerson;
-    }
-
     public void setPriceOne(Double priceOne) {
         this.priceOne = priceOne;
     }
