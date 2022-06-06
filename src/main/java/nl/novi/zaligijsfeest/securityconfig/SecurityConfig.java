@@ -1,8 +1,10 @@
 package nl.novi.zaligijsfeest.securityconfig;
 
+
 import nl.novi.zaligijsfeest.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@ComponentScan(basePackageClasses = CustomUserDetailsService.class)
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -47,9 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
-                .antMatchers("/open/**").permitAll()
-//                .antMatchers("/users/**").hasRole("USER")
-                .antMatchers("/admin/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/users/**").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .cors()

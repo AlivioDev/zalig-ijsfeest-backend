@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class OrderDto {
-    //Variabelen
+
     @NotBlank
     @NotNull
     private Long id;
@@ -24,22 +24,20 @@ public class OrderDto {
 
     @NotBlank
     @NotNull
-    private Boolean paymentStatus;
+    private String paymentStatus;
 
     private List<OrderLine> orderLines;
 
     private User user;
 
-    //constructors
-    //default
+
     public OrderDto() {
     }
 
-    //volledig
     public OrderDto(Long id,
                     Double orderAmount,
                     String pickupDate,
-                    Boolean paymentStatus,
+                    String paymentStatus,
                     List<OrderLine> orderLines,
                     User user) {
         this.id = id;
@@ -50,8 +48,13 @@ public class OrderDto {
         this.user = user;
     }
 
+    public OrderDto(Double orderAmount,
+                    String paymentStatus) {
+        this.orderAmount = orderAmount;
+        this.paymentStatus = paymentStatus;
+    }
 
-    //getters
+
     public Long getId() {
         return id;
     }
@@ -64,7 +67,7 @@ public class OrderDto {
         return pickupDate;
     }
 
-    public Boolean getPaymentStatus() {
+    public String getPaymentStatus() {
         return paymentStatus;
     }
 
@@ -76,7 +79,7 @@ public class OrderDto {
         return user;
     }
 
-    //setters
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -89,7 +92,7 @@ public class OrderDto {
         this.pickupDate = pickupDate;
     }
 
-    public void setPaymentStatus(Boolean paymentStatus) {
+    public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
 

@@ -1,27 +1,30 @@
 package nl.novi.zaligijsfeest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "orderlines")
 public class OrderLine {
-    //Variabelen
+
     @Id
-    @GeneratedValue
-    private Long id;
+    private String id;
 
     private String productName;
     private String flavors;
     private String options;
     private Integer persons;
     private Double price;
+    private Long dateCreated;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "order_id")
     private Order order;
 
-    //getters
-    public Long getId() {
+
+    public String getId() {
         return id;
     }
 
@@ -49,8 +52,12 @@ public class OrderLine {
         return order;
     }
 
-    //setters
-    public void setId(Long id) {
+    public Long getDateCreated() {
+        return dateCreated;
+    }
+
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -76,5 +83,9 @@ public class OrderLine {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public void setDateCreated(Long dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }

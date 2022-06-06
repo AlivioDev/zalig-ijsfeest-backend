@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 public class OrderLineDto {
 
-    private Long id;
+    private String id;
 
     @NotBlank
     @NotNull
@@ -25,26 +25,35 @@ public class OrderLineDto {
     @NotNull
     private Double price;
 
+    private Long dateCreated;
+
     private Order order;
 
-    //constructors
-    //default
+
     public OrderLineDto() {
     }
 
-    //volledig
-    public OrderLineDto(Long id, String productName, String flavors, String options, Integer persons, Double price, Order order) {
+    public OrderLineDto(String id, String productName, String flavors, String options, Integer persons, Double price, Long dateCreated, Order order) {
         this.id = id;
         this.productName = productName;
         this.flavors = flavors;
         this.options = options;
         this.persons = persons;
         this.price = price;
+        this.dateCreated = dateCreated;
         this.order = order;
     }
 
-    //getters
-    public Long getId() {
+    public OrderLineDto(String id, String productName, String flavors, String options, double price) {
+        this.id = id;
+        this.productName = productName;
+        this.flavors = flavors;
+        this.options = options;
+        this.price = price;
+    }
+
+
+    public String getId() {
         return id;
     }
 
@@ -68,12 +77,16 @@ public class OrderLineDto {
         return price;
     }
 
+    public Long getDateCreated() {
+        return dateCreated;
+    }
+
     public Order getOrder() {
         return order;
     }
 
-    //setters
-    public void setId(Long id) {
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -98,6 +111,10 @@ public class OrderLineDto {
     }
 
     public void setOrder(Order order) {
-        this.order = this.order;
+        this.order = order;
+    }
+
+    public void setDateCreated(Long dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }

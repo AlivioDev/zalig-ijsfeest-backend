@@ -8,7 +8,6 @@ import java.util.Set;
 
 public class UserDto {
 
-    //Variabelen
     @NotBlank
     private String username;
 
@@ -28,28 +27,28 @@ public class UserDto {
     @NotBlank
     private String phoneNumber;
 
-    private String role;
-
     private Set<Authority> authorities;
 
 
-    //Constructors
-    //Default
     public UserDto() {
     }
 
-    public UserDto(String username, String password, String email, String firstName, String lastName, String phoneNumber, String role, Set<Authority> authorities) {
+    public UserDto(String username, String password, String email, String firstName, String lastName, String phoneNumber, Set<Authority> authorities) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.role = role;
         this.authorities = authorities;
     }
 
-    //Getters
+    public UserDto(String username) {
+        this.username = username;
+
+    }
+
+
     public String getUsername() {
         return username;
     }
@@ -74,15 +73,11 @@ public class UserDto {
         return phoneNumber;
     }
 
-    public String getRole() {
-        return role;
-    }
-
     public Set<Authority> getAuthorities() {
         return authorities;
     }
 
-    //Setters
+
     public void setUsername(String userName) {
         this.username = userName;
     }
@@ -105,10 +100,6 @@ public class UserDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public void setAuthorities(Set<Authority> authorities) {

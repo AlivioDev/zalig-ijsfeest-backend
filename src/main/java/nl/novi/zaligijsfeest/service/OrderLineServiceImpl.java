@@ -4,22 +4,24 @@ import nl.novi.zaligijsfeest.dto.OrderLineDto;
 import nl.novi.zaligijsfeest.exception.RecordNotFoundException;
 import nl.novi.zaligijsfeest.model.OrderLine;
 import nl.novi.zaligijsfeest.repository.OrderLineRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrderLineServiceImpl implements OrderLineService {
 
-    @Autowired
-    OrderLineRepository orderLineRepository;
 
-    //methode voor het opvragen van alle bestelregels
+    private final OrderLineRepository orderLineRepository;
+
+    public OrderLineServiceImpl(@Lazy OrderLineRepository orderLineRepository) {
+        this.orderLineRepository = orderLineRepository;
+    }
+
     @Override
-    public List<OrderLineDto> getOrderLines() {
+    public List<OrderLineDto> findOrderLines() {
         if (!orderLineRepository.findAll().isEmpty()) {
             List<OrderLineDto> orderLineDtoList = new ArrayList<>();
             List<OrderLine> orderLineList = orderLineRepository.findAll();
@@ -32,20 +34,20 @@ public class OrderLineServiceImpl implements OrderLineService {
         }
     }
 
-    //Methode voor het opvragen van een bestelregel
     @Override
-    public OrderLineDto getOrderLine(Long id) {
-        OrderLineDto orderLineDto;
-        Optional<OrderLine> orderLine = orderLineRepository.findById(id);
-        if (orderLine.isPresent()) {
-            orderLineDto = fromOrderLine(orderLine.get());
+    public List<OrderLineDto> findOrderLinesByUsername(String username) {
+        if (!orderLineRepository.findOrderLinesByIdStartingWith(username).isEmpty()) {
+            List<OrderLineDto> orderLineDtoList = new ArrayList<>();
+            List<OrderLine> orderLineList = orderLineRepository.findOrderLinesByIdStartingWith(username);
+            for (OrderLine orderLine : orderLineList) {
+                orderLineDtoList.add(fromOrderLine(orderLine));
+            }
+            return orderLineDtoList;
         } else {
-            throw new RecordNotFoundException("Er is geen bestelregel gevonden met id" + id + ".");
+            throw new RecordNotFoundException("Er zijn geen bestelregels gevonden");
         }
-        return orderLineDto;
     }
 
-    //Methode voor het toevoegen van een bestelregel
     @Override
     public OrderLineDto addOrderLine(OrderLineDto orderLineDto) {
         OrderLine orderLine = toOrderLine(orderLineDto);
@@ -53,15 +55,8 @@ public class OrderLineServiceImpl implements OrderLineService {
         return orderLineDto;
     }
 
-    //Methode voor het verwijderen van een bestelregel
     @Override
-    public void deleteOrderLine(Long id) {
-        orderLineRepository.deleteById(id);
-    }
-
-    //Methode voor het wijzigen van een bestelregel
-    @Override
-    public OrderLineDto updateOrderLine(Long id, OrderLineDto orderLineDto) {
+    public OrderLineDto updateOrderLine(String id, OrderLineDto orderLineDto) {
         if (orderLineRepository.existsById(id)) {
             OrderLine orderLine = orderLineRepository.findById(id).get();
 
@@ -71,6 +66,7 @@ public class OrderLineServiceImpl implements OrderLineService {
             orderLine.setOptions(orderLineDto.getOptions());
             orderLine.setPersons(orderLineDto.getPersons());
             orderLine.setPrice(orderLineDto.getPrice());
+            orderLine.setDateCreated(orderLineDto.getDateCreated());
             orderLine.setOrder(orderLineDto.getOrder());
 
             orderLineRepository.save(orderLine);
@@ -80,7 +76,6 @@ public class OrderLineServiceImpl implements OrderLineService {
         }
     }
 
-    //Methode om de gegevens vanuit de dto aan de entity door te geven
     public OrderLine toOrderLine(OrderLineDto orderLineDto) {
         var orderLine = new OrderLine();
 
@@ -90,12 +85,12 @@ public class OrderLineServiceImpl implements OrderLineService {
         orderLine.setOptions(orderLineDto.getOptions());
         orderLine.setPersons(orderLineDto.getPersons());
         orderLine.setPrice(orderLineDto.getPrice());
+        orderLine.setDateCreated(orderLineDto.getDateCreated());
         orderLine.setOrder(orderLineDto.getOrder());
 
         return orderLine;
     }
 
-    //Methode om de gegevens vanuit de entity door te geven aan de dto
     public static OrderLineDto fromOrderLine(OrderLine orderLine) {
         var orderLineDto = new OrderLineDto();
 
@@ -105,6 +100,7 @@ public class OrderLineServiceImpl implements OrderLineService {
         orderLineDto.setOptions(orderLine.getOptions());
         orderLineDto.setPersons(orderLine.getPersons());
         orderLineDto.setPrice(orderLine.getPrice());
+        orderLineDto.setDateCreated(orderLine.getDateCreated());
         orderLineDto.setOrder(orderLine.getOrder());
 
         return orderLineDto;

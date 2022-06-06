@@ -1,10 +1,7 @@
 package nl.novi.zaligijsfeest.controller;
 
-import nl.novi.zaligijsfeest.dto.OrderDto;
 import nl.novi.zaligijsfeest.dto.OrderLineDto;
 import nl.novi.zaligijsfeest.service.OrderLineService;
-import nl.novi.zaligijsfeest.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,44 +10,35 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping(path = "/open/orderlines")
+@RequestMapping(path = "/orderlines")
 public class OrderLineController {
 
-    //Koppeling met de servicelaag om de methoden te kunnen gebruiken
-    @Autowired
-    OrderLineService orderLineService;
+    private final OrderLineService orderLineService;
 
-    //een GET-request voor alle bestelregels
+    public OrderLineController(OrderLineService orderLineService) {
+        this.orderLineService = orderLineService;
+    }
+
     @GetMapping(path ="")
     public ResponseEntity<Object> getOrderLines() {
-        List<OrderLineDto> orderLineDtoList = orderLineService.getOrderLines();
+        List<OrderLineDto> orderLineDtoList = orderLineService.findOrderLines();
         return new ResponseEntity<>(orderLineDtoList, HttpStatus.OK);
     }
 
-    //en GET-request voor 1 bestelregel
-    @GetMapping(path ="/{id}")
-    public ResponseEntity<Object> getOrderLine(@PathVariable("id") Long id) {
-        OrderLineDto orderLineDto = orderLineService.getOrderLine(id);
-        return new ResponseEntity<>(orderLineDto, HttpStatus.OK);
+    @GetMapping("/user/{username}")
+    public ResponseEntity<Object> getOrderLinesByUser(@PathVariable("username") String username) {
+        List<OrderLineDto> orderLineDtoList = orderLineService.findOrderLinesByUsername(username);
+        return new ResponseEntity<>(orderLineDtoList, HttpStatus.OK);
     }
 
-    //een POST-request voor 1 bestelregel
     @PostMapping(path ="")
     public ResponseEntity<Object> createOrderLine(@RequestBody OrderLineDto orderLineDto) {
         OrderLineDto orderLine = orderLineService.addOrderLine(orderLineDto);
         return new ResponseEntity<>(orderLine, HttpStatus.CREATED);
     }
 
-    //een DELETE-request voor 1 bestelregel
-    @DeleteMapping(path ="/{id}")
-    public ResponseEntity<Object> deleteOrderLine(@PathVariable("id") Long id) {
-        orderLineService.deleteOrderLine(id);
-        return new ResponseEntity<>("Bestelling " + id + " verwijderd.", HttpStatus.FOUND);
-    }
-
-    //een PUT-request voor 1 bestelregel
-    @PutMapping(path ="/{id}")
-    public ResponseEntity<Object> updateOrderLine(@PathVariable("id") Long id, @RequestBody OrderLineDto orderLineDto) {
+    @PutMapping(path ="/update/{id}")
+    public ResponseEntity<Object> updateOrderLine(@PathVariable("id") String id, @RequestBody OrderLineDto orderLineDto) {
         OrderLineDto orderLine = orderLineService.updateOrderLine(id, orderLineDto);
         return new ResponseEntity<>(orderLine, HttpStatus.OK);
     }
